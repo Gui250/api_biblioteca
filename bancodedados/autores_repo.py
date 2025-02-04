@@ -34,3 +34,14 @@ def buscar_autor(id):
         'id': autor[0],
         'nome': autor[1]
     }
+
+def editar_autores(id, nome):
+    result = cursor.execute('update autores set nome = %s where id = %s', (nome, id))
+    con.commit()
+    return True
+
+
+def excluir_autor(id):
+    result = cursor.execute('delete from autores where id = %s', (id, ))
+    con.commit()
+    return True
