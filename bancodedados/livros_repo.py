@@ -47,3 +47,31 @@ def cadastrar_livro(titulo, editora, ano, autor_id):
         'ano': livro[3],
         'autor': livro[4]
     }
+
+
+def buscar_livro(id):
+    result = cursor.execute('select * from livros where id = %s', (id, ))
+    livro = result.fetchone()
+
+    if livro == None: 
+        return None 
+    
+    return {
+        'id': livro[0],
+        'titulo': livro[1], 
+        'editora': livro[2],
+        'ano': livro[3],
+        'autor': livro[4]
+    }
+
+
+def editar_livro(id, titulo, editora, ano, autor_id):
+    cursor.execute('update livros set titulo = %s, editora = %s, ano = %s, autor_id = %s where id = %s', (titulo, editora, ano, autor_id, id))
+    con.commit()
+    return True
+
+
+def excluir_livro(id):
+    cursor.execute('delete from livros where id = %s', (id, ))
+    con.commit()
+    return True
